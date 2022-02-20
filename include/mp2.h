@@ -83,8 +83,53 @@ typedef struct {
 //P3 - 800FD328
 //P4 - 800FD35C
 
+typedef struct OSContStatus {
+    u16 type;
+    u8 status;
+    u8 errno;
+} OSContStatus;
+
+typedef struct OSContPad {
+    u16 button;
+    s8 stick_x;
+    s8 stick_y;
+    u8 errno;
+} OSContPad;
+
 
 //data
+extern OSContStatus p1OSContStatus;
+extern OSContPad p1OSContPad;
+
+extern OSContStatus p2OSContStatus;
+extern OSContPad p2OSContPad;
+
+extern OSContStatus p3OSContStatus;
+extern OSContPad p3OSContPad;
+
+extern OSContStatus p4OSContStatus;
+extern OSContPad p4OSContPad;
+
+
+extern s16 p1HeldButtonsPrevious;
+extern s16 p1HeldButtonsCurrent;
+extern s16 p1PressedButtons;
+
+extern s16 p2HeldButtonsPrevious;
+extern s16 p2HeldButtonsCurrent;
+extern s16 p2PressedButtons;
+
+extern s16 p3HeldButtonsPrevious;
+extern s16 p3HeldButtonsCurrent;
+extern s16 p3PressedButtons;
+
+extern s16 p4HeldButtonsPrevious;
+extern s16 p4HeldButtonsCurrent;
+extern s16 p4PressedButtons;
+
+extern s16 playerPressedButtonsArrayCustom[4];
+
+
 extern s16 globalTaunt;
 extern s16 canTauntDuringYourTurn;
 extern s16  PlayerPressedButtonsArray[4]; //0x800C9520

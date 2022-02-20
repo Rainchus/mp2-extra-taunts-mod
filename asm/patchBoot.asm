@@ -82,8 +82,12 @@
 J mainASMFunction //instruction copied and used as a hook
 NOP
 
+//rom has 0x0000FFFF at RAM address 0x800BF914 so we'll stick a NOP here to clear it
+.org 0x800BF914
+NOP
+
 //ROM addr 0xC0510
-.org 0x800BF910
+.org 0x800BF920
 mainASMFunction:
 JAL mainCFunction
 NOP

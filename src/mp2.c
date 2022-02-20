@@ -26,6 +26,41 @@ D_JPAD, //win item (dpad down)
 U_JPAD, //win game (dpad up)
 };
 
+
+void updateCustomPlayerPressedButtons(void) {
+    s16 buttonsTemp;
+
+	if (!(p1OSContStatus.status & 0x80)) {//controller is plugged in, update variables
+		p1HeldButtonsPrevious = p1HeldButtonsCurrent;
+		p1HeldButtonsCurrent = p1OSContPad.button;
+		buttonsTemp = p1HeldButtonsCurrent & p1HeldButtonsPrevious;
+		p1PressedButtons = buttonsTemp ^ p1HeldButtonsCurrent;
+	}
+
+
+	if (!(p2OSContStatus.status & 0x80)) { //controller is plugged in, update variables
+		p2HeldButtonsPrevious = p2HeldButtonsCurrent;
+		p2HeldButtonsCurrent = p2OSContPad.button;
+		buttonsTemp = p2HeldButtonsCurrent & p2HeldButtonsPrevious;
+		p2PressedButtons = buttonsTemp ^ p2HeldButtonsCurrent;
+	}
+
+	if (!(p3OSContStatus.status & 0x80)) { //controller is plugged in, update variables
+		p3HeldButtonsPrevious = p3HeldButtonsCurrent;
+		p3HeldButtonsCurrent = p3OSContPad.button;
+		buttonsTemp = p3HeldButtonsCurrent & p3HeldButtonsPrevious;
+		p3PressedButtons = buttonsTemp ^ p3HeldButtonsCurrent;
+	}
+
+	if (!(p4OSContStatus.status & 0x80)) { //controller is plugged in, update variables
+		p4HeldButtonsPrevious = p4HeldButtonsCurrent;
+		p4HeldButtonsCurrent = p4OSContPad.button;
+		buttonsTemp = p4HeldButtonsCurrent & p4HeldButtonsPrevious;
+		p4PressedButtons = buttonsTemp ^ p4HeldButtonsCurrent;
+	}
+}
+
+
 playerMain* getPlayerStructCustom(s32 playerIndex) { //same as `GetPlayerStruct` just loaded into ram from boot sooner
 	return (playerMain*)0x800FD2C0 + playerIndex;
 }
@@ -34,9 +69,9 @@ void checkPlayerTaunt(s32 playerIndex) { //check if current player in loop shoul
 	playerMain* player = getPlayerStructCustom(playerIndex);
 	if (!(player->flags & 1)) { //if player is not cpu
 		s16 currentVoiceOffset = -1;
-		if ((PlayerPressedButtonsArray[player->controller_port] & 0xFFFFFFFF) != 0) { //player has pressed *something*, check what
+		if ((playerPressedButtonsArrayCustom[player->controller_port] & 0xFFFFFFFF) != 0) { //player has pressed *something*, check what
 			for (s32 j = 0; j < sizeof(tauntButtonsArray) / sizeof(s16); j++) { //check what button was pressed
-				if (PlayerPressedButtonsArray[player->controller_port] == tauntButtonsArray[j]) {
+				if (playerPressedButtonsArrayCustom[player->controller_port] == tauntButtonsArray[j]) {
 					currentVoiceOffset = j;
 					break;
 				} else {
@@ -72,6 +107,9 @@ void playerTauntsMain() {
 }
 
 void mainCFunction() {
+	globalTaunt = 1;
+	canTauntDuringYourTurn = 1;
+	updateCustomPlayerPressedButtons();
 	playerTauntsMain();
 }
 
