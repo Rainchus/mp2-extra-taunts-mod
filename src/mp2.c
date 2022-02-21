@@ -1,16 +1,23 @@
 #include "../include/mp2.h"
 
+//mario happy1 0xF5
+//mario sad1 0xFC
+//mario happy2 0x103
+//mario happy3 0x10A (got star?)
+//mario sad2 0x111
+//mario happy4 0x118 (same as 0xf9)
+
 s16 characterVoiceBase[] = {
 0x0FC, //despair 1 (c-right)
 0x111, //despair 2 (c-left)
-0x107, //good choice (c-down)
+0x103, //good choice (c-down)
 0x26C, //lose mini (c-up) [invalid id, change]
 0x4B6, //taunt (L)
 0x2C5, //super star (Z and (copied from existing mod, unused?))
-0x102, //win mini (dpad right)
-0x10A, //win star (dpad left)
-0x275, //win item (dpad down) [invalid id, change]
-0x10E, //win game (dpad up)
+0x10A, //win mini (dpad right)
+0x0F5, //win star (dpad left)
+0x118, //win item (dpad down) [invalid id, change]
+0x118, //win game (dpad up)
 };
 
 s16 tauntButtonsArray[] = {
