@@ -142,6 +142,7 @@ extern s16	Player4Pressedbuttons;	//0x800C9526
 extern s32 GetCurrentPlayerIndex(void);
 extern playerMain* GetPlayerStruct(s32 playerIndex);
 extern void PlaySound(s32 soundIndex);
-
+extern void PlaySoundInternal(s32 soundIndex, s32 unknown);
+extern void anotherSoundFunction(s32, s32);
 
 

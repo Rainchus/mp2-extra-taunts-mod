@@ -8,31 +8,20 @@
 //mario happy4 0x118 (same as 0xf9)
 
 s16 characterVoiceBase[] = {
-0x0FC, //despair 1 (c-right)
-0x111, //despair 2 (c-left)
-0x103, //good choice (c-down)
-0x26C, //lose mini (c-up) [invalid id, change]
-0x4B6, //taunt (L)
-0x2C5, //super star (Z and (copied from existing mod, unused?))
-0x10A, //win mini (dpad right)
-0x0F5, //win star (dpad left)
-0x118, //win item (dpad down) [invalid id, change]
-0x118, //win game (dpad up)
+	0x10A, //win mini (dpad up)
+	0x103, //good choice (dpad right)
+	0x0FC, //despair 1 (dpad-left)
+	0x111, //despair 2 (dpad-down)
+	0x4B6, //taunt (L)
 };
 
 s16 tauntButtonsArray[] = {
-R_CBUTTONS, //despair 1 (c-right)
-L_CBUTTONS, //despair 2 (c-left)
-D_CBUTTONS, //good choice (c-down)
-U_CBUTTONS, //lose mini (c-up)
-L_TRIG, //taunt (L)
-(Z_TRIG & L_TRIG), //super star (Z and L (copied from existing mod, unused?))
-R_JPAD, //win mini (dpad right)
-L_JPAD, //win star (dpad left)
-D_JPAD, //win item (dpad down)
-U_JPAD, //win game (dpad up)
+	U_JPAD, //win game (dpad up)
+	R_JPAD, //win mini (dpad right)
+	L_JPAD, //win star (dpad left)
+	D_JPAD, //win item (dpad down)
+	L_TRIG, //taunt (L)
 };
-
 
 void updateCustomPlayerPressedButtons(void) {
     s16 buttonsTemp;
@@ -87,7 +76,13 @@ void checkPlayerTaunt(s32 playerIndex) { //check if current player in loop shoul
 			}
 
 			if (currentVoiceOffset != -1) {
-				PlaySound(characterVoiceBase[currentVoiceOffset] + player->characterID);
+				if (tauntButtonsArray[currentVoiceOffset] == 0x4B6) {
+					//PlaySoundInternal((characterVoiceBase[currentVoiceOffset] + player->characterID), 0);
+					anotherSoundFunction(characterVoiceBase[currentVoiceOffset], playerIndex);
+				} else {
+					PlaySound(characterVoiceBase[currentVoiceOffset] + player->characterID);
+				}
+				
 			}
 		}
 	}
@@ -114,8 +109,8 @@ void playerTauntsMain() {
 }
 
 void mainCFunction() {
-	globalTaunt = 1;
-	canTauntDuringYourTurn = 1;
+	//globalTaunt = 1;
+	//canTauntDuringYourTurn = 1;
 	updateCustomPlayerPressedButtons();
 	playerTauntsMain();
 }

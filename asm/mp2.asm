@@ -47,3 +47,5 @@
 .definelabel GetCurrentPlayerIndex, 0x8005DC30
 .definelabel GetPlayerStruct, 0x8005DC3C
 .definelabel PlaySound, 0x80014B14
+.definelabel PlaySoundInternal, 0x80014B30
+.definelabel anotherSoundFunction, 0x800797DC

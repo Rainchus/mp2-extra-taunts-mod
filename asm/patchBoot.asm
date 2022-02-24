@@ -86,6 +86,9 @@ NOP
 .org 0x800BF914
 NOP
 
+.org 0x80062DE4 //remove existing taunts
+NOP
+
 //ROM addr 0xC0510
 .org 0x800BF920
 mainASMFunction:
